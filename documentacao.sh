@@ -21,22 +21,25 @@
 #                                                                             #
 ###############################################################################
 #
-# Versão 0.1 (26/02/2016)
+# Versão 1.0 (26/02/2016)
 # - Versão original
 # 
-# Versão 0.2 (27/02/2016)
+# Versão 1.1 (27/02/2016)
 # - Remoção de acentuação e caracteres especiais, para maior compatibilidade
 # - Adicionado cabeçalho ao documento
 # - Adicionadas mais saídas na tela
 # 
-# Versão 0.3 (29/02/2016
+# Versão 1.2 (29/02/2016
 # - Alteração na opção do comando "free"
 # - Alteração no uso do comando "nmap"
 # - Adicionadas mais saídas na tela
 # 
-# Versão 0.4 (03/03/2016)
+# Versão 1.3 (03/03/2016)
 # - Alteração no tratamento de saída do comando "ifconfig" para maior compatibilidade
 # - Alteração no tratamento de saída do comando "free" para maior compatibilidade
+#
+# Versão 1.4 (26/12/2016)
+# - Adição de lista de pacotes do servidor;
 #
 USUARIO=`whoami`
 if [ "$USUARIO" != "root" ];
@@ -119,8 +122,24 @@ echo "----------------------------" >> $DOC
 echo "Adquirindo informacoes de servicos do servidor..."
 echo "Aguarde..."
 
-#nmap -sT -sU 127.0.0.1 -p0-65535 | sed '/^$/d'| sed '1,4d' | sed '/done/d' >> $DOC
-nmap -sS -sU -sV 127.0.0.1 -p0-65535 | sed '/^$/d'| sed '1,4d' | sed '/done/d' >> $DOC
+#nmap -sS -sU -sV 127.0.0.1 -p0-65535 | sed '/^$/d'| sed '1,4d' | sed '/done/d' >> $DOC
+nmap -sS -sU -sV 127.0.0.1 | sed '/^$/d'| sed '1,4d' | sed '/done/d' >> $DOC
+#netstat -tlunp | awk -F "/" '/\// && !/PID/{gsub(/ |:/, ""); print $2"," | "sort -u" }' 
+
+echo >> $DOC
+echo "----------------------------" >> $DOC
+echo "= LISTA DE PACOTES DO SERVIDOR =" >> $DOC
+echo "----------------------------" >> $DOC
+
+echo "Listando pacotes instalados no servidor..."
+echo "Aguarde..."
+
+if [ -e "$RHEL" ]
+  then
+        rpm -qa >> $DOC
+  else
+        dpkg --get-selections | awk '{if ($2=="install") print $1}' >> $DOC
+fi
 
 echo
 echo "Documentacao criada com sucesso!"
