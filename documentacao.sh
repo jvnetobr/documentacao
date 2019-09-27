@@ -3,7 +3,7 @@
 
 ###############################################################################
 #    Criado por José Vieira da Costa Neto                                     #
-#    http://blog.vieira.eti.br | contato@vieira.eti.br                        #
+#    http://blog.vieira.net.br | contato@vieira.net.br                        #
 # 									      #
 #    Este programa é um software livre; você pode redistribuí-lo e/ou         #
 #    modificá-lo dentro dos termos da Licença Pública Geral GNU como          #
