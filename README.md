@@ -8,4 +8,4 @@ $ sudo chmod +x documentacao.sh
 $ sudo ./documentacao.sh
 ```
 
-Can you read your file using "cat"
+You can read your file using "cat"
